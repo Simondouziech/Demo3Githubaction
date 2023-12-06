@@ -1,0 +1,21 @@
+name : Test cache
+on : push
+jobs : 
+  build :
+    runs-on : ubuntu-latest
+    steps :
+      - run: |
+          mkdir dep
+          echo "Mon application" > dep/my_app.txt
+      - name: Cache
+        uses: actions/cache@v3.3.2
+        with:
+          path: dep/
+          key: mon_cache
+  deploy :
+    runs-on: ubuntu-latest
+    needs : [build]
+    steps:
+      - run : |
+          ls
+          cat my_app.txt
