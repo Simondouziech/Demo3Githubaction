@@ -1,0 +1,24 @@
+name : Test Aritifact
+on : push
+jobs : 
+  build :
+    runs-on : ubuntu-latest
+    steps :
+      - run: echo "Mon application" > my_app.txt
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.3
+        with:
+            name: AppToDeploy
+            path: my_app.txt
+
+  deploy :
+    runs-on: ubuntu-latest
+    needs : [build]
+    steps:
+      - name: Upload a Build Artifact
+        uses: actions/download-artifact@v2.1.1
+        with:
+            name: AppToDeploy
+      - run : |
+          ls
+          cat my_app.txt
