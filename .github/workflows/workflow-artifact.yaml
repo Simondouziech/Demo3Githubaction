@@ -1,5 +1,5 @@
 name : Test Aritifact
-on : push
+on : merge[merge_group]
 jobs : 
   build :
     runs-on : ubuntu-latest
